@@ -56,8 +56,13 @@ function init(){
             types.sort((a, b) => d3.descending(a.total, b.total));
             const sortedTypes = types.map(d => d.type);
 
-            color.domain(sortedTypes)
-                .range(d3.quantize(d3.interpolateRainbow, sortedTypes.length));
+            const palette = [
+                ...d3.schemeTableau10,
+                ...d3.schemePaired,
+                ...d3.schemeDark2
+            ];
+            
+            color.domain(sortedTypes).range(palette);
 
             updateAxes()
             updateVis()
@@ -237,8 +242,13 @@ function addLegend(){
     const legendHeight = types.length * 20;
     const legendYOffset = (height - legendHeight) / 2;
 
-    color.domain(sortedTypes)
-        .range(d3.quantize(d3.interpolateRainbow, sortedTypes.length));
+    const palette = [
+        ...d3.schemeTableau10,
+        ...d3.schemePaired,
+        ...d3.schemeDark2
+    ];
+    
+    color.domain(sortedTypes).range(palette);
 
     const legend = svg.append("g")
         .attr("class", "legend")
